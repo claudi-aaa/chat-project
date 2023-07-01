@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { auth } from "../config/firebase"
 import { onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import Cookies from "universal-cookie";
 
+const cookies = new Cookies()
 
+export const Auth = (props) => {
 
-export const Auth = () => {
+    const { setIsAuth } = props;
 
     const [authUser, setAuthUser] = useState(null);
     const [viewSignIn, setViewSignIn] = useState(true);
@@ -18,14 +21,21 @@ export const Auth = () => {
 
     const handleSubmit = async(e, submittype) => {
         e.preventDefault()
-        if (submittype === 'login') {
-            signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {console.log(userCredential)})
-            .catch((err) => console.error(err))
+        if (submittype === "login") {
+            try {
+                const result = await signInWithEmailAndPassword(auth, email, password)
+                cookies.set("auth-token", result.user.refreshToken)
+            } catch(err) {
+                console.error(err)
+            }
+    
         } else {
-            createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {console.log(userCredential)})
-            .catch((err) => console.error(err))
+            try {
+                const result = await createUserWithEmailAndPassword(auth, email, password)
+                cookies.set("auth-token", result.user.refreshToken)
+            } catch(err) {
+                console.error(err)
+            }
         }
     }
 
@@ -47,6 +57,7 @@ export const Auth = () => {
 
     const userSignOut = () => {
         signOut(auth).then(() => {
+            cookies.remove("auth-token")
             console.log('user signed out')
         }).catch(err => console.error(err))
     }
@@ -73,7 +84,6 @@ export const Auth = () => {
                 <button type="submit" onClick={(e) => handleSubmit(e, viewSignIn ? 'login' : 'signup')}>
                 Submit</button>
             </form>
-
         </div>
 
 
