@@ -1,0 +1,9 @@
+.auth-form-box {
+    display: flexbox;
+    flex-direction: column;
+    text-align: center;
+}
+
+.auth-options{
+    text-align: center;
+}
