@@ -64,13 +64,14 @@ export const Auth = (props) => {
 
 
   return (
-    <div>
+    <div className="auth-container">
         <div className="auth-form-box">
-            <h2>{viewSignIn ? 'Please log in' : 'Please register'}</h2>
-            <form>
+            <h2 className="auth-header">{viewSignIn ? 'Please log in' : 'Please register'}</h2>
+            <form className="auth-form">
             {viewSignIn ? null : (
-                <div>
-                    <label htmlFor="nickname">Nickname</label>
+                <>
+                    <label htmlFor="nickname">Nickname:</label>
+                    <br/>
                     <input
                         type="text"
                         name="nickname"
@@ -79,9 +80,10 @@ export const Auth = (props) => {
                         onChange={(e) => setNickname(e.target.value)}
                         >
                     </input>
-                </div>
+                </>
             )}
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email:</label>
+                <br/>
                 <input 
                     type="email" 
                     name="email" 
@@ -90,6 +92,7 @@ export const Auth = (props) => {
                     onChange={(e) => setEmail(e.target.value)}></input>
                 <br/>
                 <label htmlFor="password">Password:</label>
+                <br/>
                 <input 
                     type="password" 
                     name="password" 
@@ -97,17 +100,19 @@ export const Auth = (props) => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}></input>
                 <br/>
-                <button type="submit" onClick={(e) => handleSubmit(e, viewSignIn ? 'login' : 'signup')}>
-                Submit</button>
+                <button 
+                    type="submit" 
+                    className="login-btn"
+                    onClick={(e) => handleSubmit(e, viewSignIn ? 'login' : 'signup')}>
+                    Submit
+                </button>
             </form>
+            <div className="auth-options">
+                <button onClick = {() => viewLogin(false)}>Register</button>
+                <button onClick = {() => viewLogin(true)}>Login</button>
+            </div>
         </div>
 
-        <div className="auth-options">
-            <button onClick = {() => viewLogin(false)}>Register</button>
-            <button onClick = {() => viewLogin(true)}>Login</button>
-        </div>
-
-    
     </div>
   )
 }
