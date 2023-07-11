@@ -10,6 +10,11 @@ export const Auth = (props) => {
 
     const { setIsAuth } = props;
 
+    const [loginError, setLoginError] = useState(null);
+    const [regError, setRegError] = useState(null);
+
+
+
     const [authUser, setAuthUser] = useState(null);
     const [viewSignIn, setViewSignIn] = useState(true);
     const [email, setEmail ] = useState("");
@@ -17,9 +22,24 @@ export const Auth = (props) => {
     const [nickname, setNickname] = useState("ANON");
 
 
-    const viewLogin = (status) => {
+    const viewLogin = (e, status) => {
         setViewSignIn(status)
+        
     }
+
+    const viewLoginError = (errorMsg) => {
+        if (errorMsg !== null) {
+            setLoginError("Invalid login, please try again")
+        }
+    }
+
+    const viewRegError = (errorMsg) => {
+        if (errorMsg !== null) {
+            setRegError("Invalid registration, please try again")
+        }
+    }
+
+
 
     const handleSubmit = async(e, submittype) => {
         e.preventDefault()
@@ -30,6 +50,7 @@ export const Auth = (props) => {
                 setIsAuth(true);
             } catch(err) {
                 console.error(err)
+                viewLoginError(err)
             }
     
         } else {
@@ -41,6 +62,7 @@ export const Auth = (props) => {
                 cookies.set("auth-token", result.user.refreshToken)
             } catch(err) {
                 console.error(err)
+                viewRegError(err)
             }
         }
     }
@@ -68,6 +90,18 @@ export const Auth = (props) => {
         <div className="auth-form-box">
             <h2 className="auth-header">{viewSignIn ? 'Please log in' : 'Please register'}</h2>
             <form className="auth-form">
+            {viewLoginError ? (
+                <>
+                <p>{loginError}</p>
+                </>
+            ) : null}
+
+            {viewRegError ? (
+                <>
+                <p>{regError}</p>
+                </>
+            ) : null}
+
             {viewSignIn ? null : (
                 <>
                     <label htmlFor="nickname">Nickname:</label>
@@ -108,8 +142,8 @@ export const Auth = (props) => {
                 </button>
             </form>
             <div className="auth-options">
-                <button onClick = {() => viewLogin(false)}>Register</button>
-                <button onClick = {() => viewLogin(true)}>Login</button>
+                <button className={viewSignIn ? null : 'active'  } onClick={(e) => viewLogin(e, false)}>Register</button>
+                <button className={viewSignIn ? 'active': null } onClick={(e) => viewLogin(e, true)}>Login</button>
             </div>
         </div>
 
