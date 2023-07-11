@@ -5,6 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth, db } from "./config/firebase";
 import { Auth } from "./components/Auth";
 import { Chat } from "./components/Chat";
+import { Header } from "./components/Header";
 import { addDoc, collection, query, where, orderBy } from "firebase/firestore";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -60,7 +61,11 @@ function App() {
 
   if (!isAuth) {
     return(
-      <Auth setIsAuth={setIsAuth}/>
+      <>
+        <Header/>
+        <Auth setIsAuth={setIsAuth}/>
+      </>
+
     )
     
   }
@@ -68,7 +73,8 @@ function App() {
 
   return (
     <div className="App">
-    
+      <Header />
+
     {room ? (<Chat room={room}/>
     ) : (
       <form className="room-form">
