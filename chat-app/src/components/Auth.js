@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react"
 import { auth } from "../config/firebase"
+import "../styles/Auth.css";
 import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import Cookies from "universal-cookie";
 
@@ -87,6 +88,7 @@ export const Auth = (props) => {
                     placeholder="yourname@email.com" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}></input>
+                <br/>
                 <label htmlFor="password">Password:</label>
                 <input 
                     type="password" 
@@ -94,6 +96,7 @@ export const Auth = (props) => {
                     placeholder="Enter your password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}></input>
+                <br/>
                 <button type="submit" onClick={(e) => handleSubmit(e, viewSignIn ? 'login' : 'signup')}>
                 Submit</button>
             </form>
