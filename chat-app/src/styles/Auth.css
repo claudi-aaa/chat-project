@@ -1,3 +1,15 @@
+:root {
+    --text: #05010e;
+    --background: #ddd0fb;
+    --primary: #3f0dab;
+    --darker: #350c8d;
+    --secondary: #ddd0fb;
+    --accent: #5712ed;
+    --trans: #5712ed2a;
+    }
+    
+
+
 
 .auth-form-box {
     display: flex;
@@ -24,7 +36,18 @@
 
 .auth-form label {
     margin-top: 15px;
+    
 }
+
+.auth-form input {
+    height: 30px;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    padding-left: 5px;
+    /* font-size: 20px; */
+    margin: 5px;
+}
+
 
 .auth-options{
     display: flex;
@@ -38,7 +61,7 @@
 
 .login-btn {
     width: 100%;
-    background-color: orange;
+    background-color: var(--accent);
     color: white;
     border: none;
     padding: 5px;
@@ -47,20 +70,21 @@
 }
 
 .login-btn:hover {
-    background-color: rgb(207, 135, 0);
+    background-color: var(--primary);
     color: white;
 }
 
 
 .auth-options button {
-    background-color: black;
+    background-color: var(--darker);
     color: white;
     border: none;
     padding: 5px;
     width: 100%;
+    cursor: pointer;
 }
 
 .auth-options .active {
-    background-color: rgba(0, 0, 0, 0.138);
-    color: black;
+    background-color: var(--trans);
+    color: var(--text);
 }

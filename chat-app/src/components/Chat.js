@@ -52,15 +52,16 @@ export const Chat = (props) => {
 
 
     return (
+        <>
         <div className="room-container">
             <div className="room-title">
-                <h1>ROOM: {room.toUpperCase()}</h1>
+                <h1>{room} Room</h1>
             </div>
 
             <div className="message-container">
                 {messages.map((message) => (
                     <div key={message.id}>
-                        <span className="from-user">{message.user}: {message.text}</span>
+                        <span className="from-user"><span className="msg-username">{message.user}:</span> {message.text}</span>
                     </div>
                 ))}
             </div>
@@ -75,10 +76,12 @@ export const Chat = (props) => {
                     value={newMessage} />
                 <button className="send-msg-btn" type="submit">Send</button>
             </form>
-
-            <p>You are signed in as {auth.currentUser.displayName}</p>
         </div>
-
+        <div className="signed-in">
+            <p>You are signed in as <span className="username">{auth.currentUser.displayName}</span></p>
+        </div>
+        
+        </>
     )
 }
 

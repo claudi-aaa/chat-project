@@ -1,19 +1,37 @@
+:root {
+    --text: #05010e;
+    --background: #ddd0fb;
+    --primary: #3f0dab;
+    --darker: #350c8d;
+    --secondary: #ddd0fb;
+    --accent: #5712ed;
+    --trans: #5712ed2a;
+    }
+    
+
+
+
 .room-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     font-family: sans-serif;
     width: 90%;
-    margin: 0 auto;
+    height: 70vh;
+    margin: 15px auto 0 auto;
     border-radius: 5px;
     overflow: hidden;
-    border: 2px solid green;
-    background-color: blueviolet;
+    border: 2px solid var(--darker);
+    border-bottom: 0;
+    background-color: var(--background);
+    box-shadow: rgba(9, 30, 66, 0.4) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 }
 
 .room-title {
-    background-color: blue;
-    color: white;
+    background-color: var(--darker);
+    font-family: 'Bungee', cursive;
+    font-size: 12px;
+    color: var(--secondary);
     width: 100%;
     text-align: center;
 }
@@ -26,8 +44,7 @@
     height: 80%;
     overflow-y: auto;
     padding: 10px;
-    margin-bottom: 10px;
-    background-color: brown;
+    background-color: white;
 }
 
 .from-user {
@@ -40,7 +57,6 @@
     flex: 1;
     border: none;
     outline: none;
-    background: transparent;
     font-size: 16px;
     color: black;
     padding: 10px;
@@ -50,13 +66,34 @@
 .send-message-form {
     display: flex;
     width: 100%;
+    border: 2px solid var(--darker);
 }
 
 .send-message-form input {
-    background-color: red;
+    background-color: rgb(217, 214, 226);
 }
 
 .send-msg-btn {
-    background-color: black;
+    background-color: var(--accent);
+    padding: 10px 20px;
+    border-radius: 5px 0 0 5px;
     color: white;
+}
+
+.send-msg-btn:hover {
+    background-color: var(--darker);
+}
+
+.signed-in {
+    text-align: center;
+    color: var(--text);
+}
+
+.username {
+    font-family: 'Bungee', cursive;
+}
+
+.msg-username {
+    font-family: 'Bungee', cursive;
+    color: var(--darker);
 }

@@ -79,9 +79,11 @@ function App() {
     ) : (
       <form className="room-form">
         <label htmlFor="room-name">Enter Room Name:</label>
+        <br/>
         <input type="text" ref={roomInputRef} name="room-name"/>
         <br />
         <label htmlFor="room-type">Select Room Type:</label>
+        <br/>
         <select name="room-type">
           <option value={isPublic} onChange={() => setIsPublic(true)}>Public</option>
           <option value={isPublic} onChange={() => setIsPublic(false)}>Private</option>
@@ -97,7 +99,10 @@ function App() {
 
     )}
      
-     <button className="signout-btn" onClick={signUserOut}>Signout</button>
+     <div className="signout-container">
+      <button className="signout-btn" onClick={signUserOut}>Signout</button>
+     </div>
+     
     
     </div>
   )}
