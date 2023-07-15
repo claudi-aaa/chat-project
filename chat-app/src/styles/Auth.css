@@ -18,25 +18,33 @@
     align-items: center;
     width: 100%;
     margin-top: 2px;
-
 }
 
 
-.auth-header {
-    font-family: 'Bungee', cursive;
-}
+
 
 .auth-form {
     display: flex;
     flex-direction: column;
     width:50%;
     padding: 15px;
-    margin-top: -100px;
+    margin-top: 50px;
+    border: 2px solid var(--darker);
+    border-radius: 5px;
+    background-color: var(--backgroun);
+    box-shadow: rgba(9, 30, 66, 0.4) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+
+}
+
+.auth-header {
+    font-family: 'Bungee', cursive;
+    color: var(--accent);
+    text-align: center;
 }
 
 .auth-form label {
-    margin-top: 15px;
-    
+    margin-top: 15px;  
+    padding-left: 5px;
 }
 
 .auth-form input {
@@ -66,7 +74,7 @@
     border: none;
     padding: 5px;
     margin-top: 25px;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 
 .login-btn:hover {
@@ -76,15 +84,28 @@
 
 
 .auth-options button {
-    background-color: var(--darker);
-    color: white;
+    background-color: var(--background);
+    color: var(--text);
     border: none;
+    border-bottom: none;
     padding: 5px;
     width: 100%;
     cursor: pointer;
 }
 
-.auth-options .active {
-    background-color: var(--trans);
-    color: var(--text);
+.auth-options button:hover {
+    background-color: var(--accent);
+    color: var(--background);
 }
+
+
+.auth-options .active {
+    color: var(--text);
+    border-bottom: 5px solid var(--accent);
+}
+
+.auth-error{
+    text-align: center;
+    color: rgb(243, 46, 82);
+}
+

@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { addDoc, collection, serverTimestamp, onSnapshot, query, where, orderBy } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
+
 import "../styles/Chat.css";
 
 
@@ -11,6 +12,13 @@ export const Chat = (props) => {
     const [messages, setMessages] = useState([]);
     const messagesRef = collection(db, "messages");
 
+
+    const messagesEndRef = useRef(null)
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' }, [messages]);
+    });
+    
 
     useEffect(() => {
         const queryMessages = query(
@@ -50,20 +58,23 @@ export const Chat = (props) => {
     }
 
 
-
     return (
         <>
         <div className="room-container">
             <div className="room-title">
                 <h1>{room} Room</h1>
             </div>
-
-            <div className="message-container">
+            <div className="message-container"> 
                 {messages.map((message) => (
                     <div key={message.id}>
                         <span className="from-user"><span className="msg-username">{message.user}:</span> {message.text}</span>
+                        <div className="msg-time">
+                            <span>{message?.createdAt?.toDate().toDateString()} </span>
+                            <span>{message?.createdAt?.toDate().toLocaleTimeString("en-GB")}</span>
+                        </div>
                     </div>
                 ))}
+                <div ref={messagesEndRef} />
             </div>
 
 
@@ -80,7 +91,7 @@ export const Chat = (props) => {
         <div className="signed-in">
             <p>You are signed in as <span className="username">{auth.currentUser.displayName}</span></p>
         </div>
-        
+
         </>
     )
 }

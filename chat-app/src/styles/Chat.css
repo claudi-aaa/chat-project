@@ -9,8 +9,6 @@
     }
     
 
-
-
 .room-container {
     display: flex;
     flex-direction: column;
@@ -96,4 +94,9 @@
 .msg-username {
     font-family: 'Bungee', cursive;
     color: var(--darker);
+}
+
+.msg-time {
+    color: rgb(135, 129, 150);
+    font-size: 10px;
 }

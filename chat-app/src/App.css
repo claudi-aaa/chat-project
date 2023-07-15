@@ -8,13 +8,21 @@
 --trans: #5712ed2a;
 }
 
+*{
+  margin: 0;
+  padding: 0;
+}
+
 
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
-  /* background-color: rgb(246, 245, 245); */
   background-color: var(--background);
   font-family: 'Cabin', sans-serif;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 button {
@@ -23,11 +31,14 @@ button {
 
 
 .App {
-  display: flex;
+  /* display: flex;
   justify-content: center;
   /* width: 100vw;
   height: 100vh; */
-  flex-direction: column;
+  /* flex-direction: column;
+    */
+  min-height: 100%;
+  margin-bottom: -50px;
 }
 
 .header {
@@ -76,6 +87,10 @@ button {
   margin: 5px;
 }
 
+.room-form-pass {
+  text-align: center;
+}
+
 .room-form button {
   width: 210px;
   height: 40px;
@@ -97,8 +112,10 @@ button {
 
 .signout-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  padding: 0 15px;
 }
 
 .signout-btn {
@@ -110,16 +127,34 @@ button {
   /* font-size: 20px; */
   text-align: center;
   margin: 5px;
-  background-color: var(--background);
+  background-color: var(--trans);
   color: var(--accent);
   border: 2px solid var(--accent);
   cursor: pointer; 
 }
 
 .signout-btn:hover {
-  background-color: var(--trans);
-  color: var(--accent);
+  background-color: var(--darker);
+  color: var(--background);
   border: 2px solid var(--accent);
   cursor: pointer; 
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-bottom: 15px;
+  /* background-color: var(--trans); */
+  padding: 15px;
+  color: var(--darker);
+  text-align: center;
+  border-bottom: 5px solid var(--accent);
+}
+
+.footer a{ 
+  text-decoration: none;
+  color: var(--darker);
 }
 

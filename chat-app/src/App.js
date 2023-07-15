@@ -6,6 +6,8 @@ import { auth, db } from "./config/firebase";
 import { Auth } from "./components/Auth";
 import { Chat } from "./components/Chat";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
+import { RoomPass } from "./components/RoomPass";
 import { addDoc, collection, query, where, orderBy } from "firebase/firestore";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
@@ -64,12 +66,11 @@ function App() {
       <>
         <Header/>
         <Auth setIsAuth={setIsAuth}/>
+        <Footer />
       </>
 
     )
-    
   }
-
 
   return (
     <div className="App">
@@ -85,9 +86,12 @@ function App() {
         <label htmlFor="room-type">Select Room Type:</label>
         <br/>
         <select name="room-type">
-          <option value={isPublic} onChange={() => setIsPublic(true)}>Public</option>
-          <option value={isPublic} onChange={() => setIsPublic(false)}>Private</option>
+          <option value={isPublic} onClick={() => setIsPublic(true)}>Public</option>
+          <option value={isPublic} onClick={() => setIsPublic(false)}>Private</option>
         </select>
+        {/* if this is set to private render this input form */}
+        {isPublic ? null : (<RoomPass/>)}
+        
         <br/>
         <button type="submit" onClick={(e) => handleRoomSubmit(e)}>Enter Chat</button>
       </form>
@@ -98,12 +102,23 @@ function App() {
       // </form>
 
     )}
+
+
+      <div className="signout-container">
+        {/* <button className="signout-btn">Change Room</button> */}
+        <button className="signout-btn">Account Settings</button>
+        <button className="signout-btn" onClick={signUserOut}>Signout</button>
+        
+      </div>
      
-     <div className="signout-container">
+     {/* <div className="signout-container">
       <button className="signout-btn" onClick={signUserOut}>Signout</button>
      </div>
      
-    
+     <div className="signout-container">
+      <button className="signout-btn">Account Settings</button>
+     </div> */}
+
     </div>
   )}
 

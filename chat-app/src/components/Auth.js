@@ -29,15 +29,21 @@ export const Auth = (props) => {
 
     const viewLoginError = (errorMsg) => {
         if (errorMsg !== null) {
-            setLoginError("Invalid login, please try again")
+            // setRegError(null)
+            setLoginError("❌ Invalid login, please try again")
         }
     }
 
     const viewRegError = (errorMsg) => {
         if (errorMsg !== null) {
-            setRegError("Invalid registration, please try again")
+            // setLoginError(null)
+            setRegError("❌ Invalid registration, please try again")
         }
     }
+
+
+    
+
 
 
 
@@ -88,20 +94,25 @@ export const Auth = (props) => {
   return (
     <div className="auth-container">
         <div className="auth-form-box">
-            <h2 className="auth-header">{viewSignIn ? 'Please log in' : 'Please register'}</h2>
             <form className="auth-form">
+            <h2 className="auth-header">{viewSignIn ? 'Please log in' : 'Please register'}</h2>
             {viewLoginError ? (
                 <>
-                <p>{loginError}</p>
+                <p className="auth-error">{loginError}</p>
                 </>
             ) : null}
 
             {viewRegError ? (
                 <>
-                <p>{regError}</p>
+                <p className="auth-error">{regError}</p>
                 </>
             ) : null}
 
+            <div className="auth-options">
+                <button className={viewSignIn ? null : 'active'  } onClick={(e) => viewLogin(e, false)}>Register</button>
+                <button className={viewSignIn ? 'active': null } onClick={(e) => viewLogin(e, true)}>Login</button>
+            </div>
+            
             {viewSignIn ? null : (
                 <>
                     <label htmlFor="nickname">Nickname:</label>
@@ -141,10 +152,7 @@ export const Auth = (props) => {
                     Submit
                 </button>
             </form>
-            <div className="auth-options">
-                <button className={viewSignIn ? null : 'active'  } onClick={(e) => viewLogin(e, false)}>Register</button>
-                <button className={viewSignIn ? 'active': null } onClick={(e) => viewLogin(e, true)}>Login</button>
-            </div>
+
         </div>
 
     </div>
