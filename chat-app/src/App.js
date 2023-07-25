@@ -7,13 +7,12 @@ import { Auth } from "./components/Auth";
 import { Chat } from "./components/Chat";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-// import { RoomPass } from "./components/RoomPass";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 function App() {
-  // check if user is authenticated or not 
+
   const [isAuth, setIsAuth] = useState(cookies.get("auth-token"));
   
   const [room, setRoom] = useState(null);
@@ -81,7 +80,7 @@ function App() {
 
   }
 
-
+// if user is not signed in display login/registration else show room form 
   if (!isAuth) {
     return(
       <>
@@ -97,6 +96,7 @@ function App() {
     <div className="App">
       <Header />
 
+    {/* room form */}
     {room ? (<Chat room={room}/>
     ) : (
       <form className="room-form">
@@ -124,7 +124,7 @@ function App() {
 
     )}
 
-
+      
       <div className="signout-container">
 
         {room ? (<button className="signout-btn" onClick={() => leaveRoom()}>Leave Room</button>)

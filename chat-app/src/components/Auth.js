@@ -9,12 +9,9 @@ const cookies = new Cookies()
 export const Auth = (props) => {
 
     const { setIsAuth } = props;
-
+    
     const [loginError, setLoginError] = useState(null);
     const [regError, setRegError] = useState(null);
-
-
-
     const [authUser, setAuthUser] = useState(null);
     const [viewSignIn, setViewSignIn] = useState(true);
     const [email, setEmail ] = useState("");
@@ -26,8 +23,6 @@ export const Auth = (props) => {
         if (authUser) {
             console.log('logged in')
         }
-
-        // console.log(`this is status ${status} and status type ${typeof status}`)
         setViewSignIn(status)
         setEmail("@gmail.com")        
     }
@@ -35,22 +30,15 @@ export const Auth = (props) => {
 
     const viewLoginError = (errorMsg) => {
         if (errorMsg !== null) {
-            // setRegError(null)
             setLoginError("❌ Invalid login, please try again")
         }
     }
 
     const viewRegError = (errorMsg) => {
         if (errorMsg !== null) {
-            // setLoginError(null)
             setRegError("❌ Invalid registration, please try again")
         }
     }
-
-
-    
-
-
 
 
     const handleSubmit = async(e, submittype) => {
@@ -104,6 +92,8 @@ export const Auth = (props) => {
         <div className="auth-form-box">
             <form className="auth-form">
             <h2 className="auth-header">{viewSignIn ? 'Please log in' : 'Please register'}</h2>
+
+            {/* registration + login errors */}
             {viewLoginError ? (
                 <>
                 <p className="auth-error">{loginError}</p>
@@ -121,6 +111,7 @@ export const Auth = (props) => {
                 <button className={viewSignIn ? 'active': null } onClick={(e) => viewLogin(e, true)}>Login</button>
             </div>
             
+            {/* registration + login form  */}
             {viewSignIn ? null : (
                 <>
                     <label htmlFor="nickname">Nickname:</label>
