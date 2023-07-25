@@ -31,7 +31,7 @@ export const Chat = (props) => {
             snapshot.forEach((doc) => {
                 messages.push({...doc.data(), id: doc.id})
             });
-            console.log(messages);
+            // console.log(messages);
             setMessages(messages);
         })
 
