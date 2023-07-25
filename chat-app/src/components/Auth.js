@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react"
 import { auth } from "../config/firebase"
 import "../styles/Auth.css";
-import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
+import { onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies()
@@ -23,9 +23,15 @@ export const Auth = (props) => {
 
 
     const viewLogin = (e, status) => {
+        if (authUser) {
+            console.log('logged in')
+        }
+
+        // console.log(`this is status ${status} and status type ${typeof status}`)
         setViewSignIn(status)
-        
+        setEmail("@gmail.com")        
     }
+    
 
     const viewLoginError = (errorMsg) => {
         if (errorMsg !== null) {
@@ -78,6 +84,8 @@ export const Auth = (props) => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user)
+                setViewSignIn(false)
+                setIsAuth(true)
             } else {
                 setAuthUser(null)
             }

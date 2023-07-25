@@ -8,12 +8,11 @@ import { Chat } from "./components/Chat";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 // import { RoomPass } from "./components/RoomPass";
-import { addDoc, collection, query, where, orderBy, getDocs } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 function App() {
-
   // check if user is authenticated or not 
   const [isAuth, setIsAuth] = useState(cookies.get("auth-token"));
   
@@ -23,7 +22,6 @@ function App() {
 
   const roomInputRef = useRef(null);
   const roomPassRef = useRef(null);
-  const roomsRef = collection(db, "rooms")
 
 
   const signUserOut = async() => {
@@ -49,55 +47,34 @@ function App() {
     try {
 
       let roomName = roomInputRef.current.value
-      
       if (isPublic === false) {
 
-        let roomPass = roomPassRef.current.value
-        let roomData = collection(db, "rooms")
-        let q = query(roomData, where("roomName", "==", roomName))
-  
-        let querySnapshot = await getDocs(q);
-  
-        if (querySnapshot.length !== null && querySnapshot.length !== undefined) {
-          querySnapshot.forEach((doc) => {
-            let currentDoc = doc.data()
-            
-            // check if password matches that found in db, only let in if correct
-            if (currentDoc.roomPass == roomPass) {
-              console.log('correct password - joining the room now')
-              setRoom(roomName);
-              return
+        const docRef = doc(db, "rooms", roomName)
+        const docSnap = await getDoc(docRef)
 
-            } else {
-              console.log('unsuccessful room join - please try again')
-              setRoom(null)
-              setRoomPass(null)
-              return
-            }
-          });
+        // take user to room only if private room exists and password is correct
+        if(docSnap.exists()) {
+          if(roomPass === docSnap.data().roomPass) {
+            setRoom(roomName);
+          } else {
+            setRoom(null);
+            setRoomPass(null);
+          }
 
+        // for private rooms that don't exist make new document
         } else {
-
-          // this private room does not exist - make it exist by adding it 
-          console.log(`this is the room name: ${roomName}`)
-
-          await addDoc(roomsRef, {
-            roomName,
-            isPublic,
-            roomPass
-          })
-
+          await setDoc(doc(db, "rooms", roomName), {
+            isPublic: false,
+            roomPass: roomPass
+          });
           setRoom(roomName);
         }
-  
-      } else {
 
+      } else {
         //  for public rooms, do not need to save to system 
         setRoom(roomName);
       }
       
-    
-
     } catch(err) {
       console.error(err)
     }
@@ -137,18 +114,13 @@ function App() {
             <div className="room-form-pass">
               <label htmlFor="roomPass">Room Password:</label>
               <br/>
-              <input name="roomPass" type="text" placeholder="password" onChange={setRoomPass} ref={roomPassRef}></input>
+              <input name="roomPass" type="text" placeholder="password" onChange={(e) => setRoomPass(e.target.value)} ref={roomPassRef}></input>
           </div>
         )}
         
         <br/>
         <button type="submit" onClick={(e) => handleRoomSubmit(e)}>Enter Chat</button>
       </form>
-      // <form>
-      //     <label htmlFor="">Enter Room Name:</label>
-      //     <input type="text" ref={roomInputRef}/>
-      //     <button onClick={()=> setRoom(roomInputRef.current.value)}>Enter Chat</button>
-      // </form>
 
     )}
 
@@ -162,14 +134,6 @@ function App() {
         <button className="signout-btn" onClick={signUserOut}>Signout</button>
         
       </div>
-     
-     {/* <div className="signout-container">
-      <button className="signout-btn" onClick={signUserOut}>Signout</button>
-     </div>
-     
-     <div className="signout-container">
-      <button className="signout-btn">Account Settings</button>
-     </div> */}
 
     </div>
   )}
