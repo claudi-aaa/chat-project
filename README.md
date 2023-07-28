@@ -1,5 +1,5 @@
 # Chit Chat Web App
-
+![my image](images/cc-small.png)
 
 ## Table of Contents
 - [Overview](#overview)
